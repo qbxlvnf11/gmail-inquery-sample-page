@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test</title>
+    <style>
+        body, html {
+            margin: 0; padding: 0; width: 100%; height: 100%;
+            <!-- overflow: hidden; -->
+            background-color: #000;
+        }
+        #responsive-image {
+            width: 100vw; height: 100vh; object-fit: cover;
+        }
+        #button-container {
+            position: fixed; right: 25px; bottom: 25px;
+            z-index: 10; display: flex; gap: 10px;
+        }
+        .action-button {
+            background-color: rgba(255, 255, 255, 0.9); color: #333;
+            padding: 10px 18px; border-radius: 50px; text-decoration: none;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+            font-weight: 600; font-size: 16px; box-shadow: 0 4px 8px rgba(0,0,0,0.15);
+            display: flex; align-items: center; cursor: pointer; border: none;
+        }
+        .action-button img {
+            width: 20px; margin-right: 8px;
+        }
+    </style>
+</head>
+<body>
+
+    <img id="responsive-image" src="images/sample_image_pc.png" alt="Sample Background">
+
+    <div id="button-container">
+        <a class="action-button" id="contact-button" target="_blank">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/7/7e/Gmail_icon_%282020%29.svg" alt="Gmail Icon">
+            Contact Us
+        </a>
+        <button class="action-button" id="copy-email-button">
+            Copy Email
+        </button>
+    </div>
+
+    <script>
+        window.onload = function() {
+            // --- 1. 기본 설정 ---
+            const contactButton = document.getElementById('contact-button');
+            const imageElement = document.getElementById('responsive-image');
+            const email = 'test@co.kr'; // 문의받을 이메일 주소
+            const subject = 'I have an inquiry about ~';
+            const body = 'Please feel free to write down your inquiry.';
+            
+            // --- 2. 기기 감지 및 이미지 변경 ---
+            const isMobile = /Mobi|Android|iPhone/i.test(navigator.userAgent);
+            if (isMobile) {
+                imageElement.src = 'images/sample_image_phone.png';
+            } else {
+                imageElement.src = 'images/sample_image_pc.png';
+            }
+
+            // --- 3. 'Contact Us' 버튼 링크 설정 (PC와 모바일 다르게) ---
+            if (isMobile) {
+                // 모바일이면 mailto: (앱 실행)
+                contactButton.href = `mailto:${email}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+            } else {
+                // PC면 Gmail 새 탭 링크
+                contactButton.href = `https://mail.google.com/mail/?view=cm&fs=1&to=${email}&su=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+            }
+
+            // --- 4. 이메일 복사 버튼 기능 ---
+            const copyButton = document.getElementById('copy-email-button');
+            copyButton.onclick = function() {
+                navigator.clipboard.writeText(email).then(function() {
+                    copyButton.innerText = 'Copy complete!';
+                    setTimeout(function() {
+                        copyButton.innerText = 'Copy Email';
+                    }, 2000);
+                });
+            };
+        };
+    </script>
+
+</body>
+</html>
