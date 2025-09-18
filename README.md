@@ -9,4 +9,6 @@ This is a simple, responsive landing page template that allows users to contact 
     * **On PC**: It opens a new tab directly to the Gmail compose screen, pre-filled with your email address, a subject line, and body text.
     * **On Mobile**: It launches the user's default email app (e.g., Apple Mail, Gmail app) using a `mailto:` link for a native experience.
 * **"Copy Email" Button**: A convenient button allows users to copy your email address to their clipboard with a single click. The button provides feedback by changing its text to "Copy complete!" for two seconds.
-* **Easy Configuration**: You can easily customize the contact email address, the default subject line, and the body text by modifying the constants at the top of the `<script>` section.
+* **Easy Configuration**: You can easily customize the contact email address, the default subject line, and the body text by modifying the constants at the top of the `<script>` section.\
+
+### Refer to [GitHub Pages](https://qbxlvnf11.github.io/gmail-inquery-sample-page/)
